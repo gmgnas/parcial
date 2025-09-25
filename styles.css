@@ -1,0 +1,156 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.2;
+    color: #333;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+h1, h2, h3, h4 {
+    color: #2c3e50;
+}
+.header {
+    text-align: center;
+    background-color: #3498db;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+.section {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.metric-card {
+    background-color: #ecf0f1;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border-left: 4px solid #3498db;
+}
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+.comparison-table th, .comparison-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+.comparison-table th {
+    background-color: #3498db;
+    color: white;
+}
+.comparison-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+.chart-container {
+    margin: 20px 0;
+    height: 500px;
+}
+.tree-container {
+    height: 700px;
+    overflow: auto;
+    border: 1px solid #ddd;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    margin: 20px 0;
+}
+.conclusion {
+    background-color: #e8f6f3;
+    padding: 15px;
+    border-radius: 5px;
+    border-left: 4px solid #27ae60;
+}
+.highlight {
+    background-color: #fffacd;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+.node-info {
+    background-color: #f0f8ff;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border-left: 4px solid #4682b4;
+}
+.tree-explanation {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.tree-explanation > div {
+    flex: 1;
+    min-width: 300px;
+}
+.tree-title {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+.tree-node {
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+.tree-node:hover {
+    background-color: #e3f2fd;
+}
+.decision-node {
+    background-color: #e8f5e9;
+    border-left: 4px solid #4caf50;
+}
+.leaf-node {
+    background-color: #fff3e0;
+    border-left: 4px solid #ff9800;
+}
+.root-node {
+    background-color: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    font-weight: bold;
+}
+.tree-image {
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+    display: block;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.image-caption {
+    text-align: center;
+    font-style: italic;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    .tree-explanation {
+        flex-direction: column;
+    }
+    .tree-explanation > div {
+        min-width: 100%;
+    }
+    .chart-container {
+        height: 400px;
+    }
+    .comparison-table {
+        font-size: 14px;
+    }
+    .comparison-table th, .comparison-table td {
+        padding: 8px;
+    }
+}

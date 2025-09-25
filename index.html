@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe: Análisis de Predicción del PBI Provincial</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <h2>Primer Parcial</h2>
+        <h2>Estimación del PBI por Provincia en relación a la Pobreza y la Deserción Escolar</h2>
+        <p>Materia: Aprendizaje Automático</p>
+        <p>Profesor: Lic. Javier Di Salvo</p>
+    </div>
+
+    <div class="section">
+        <h2>Introducción</h2>
+        <p>Este informe presenta los resultados del análisis de predicción del Producto Bruto Interno (PBI) por provincia utilizando diferentes algoritmos de aprendizaje automático. El estudio se centra en evaluar la relación entre indicadores socioeconómicos (pobreza y deserción escolar) y el PBI provincial.</p>
+        
+        <div class="metric-card">
+            <h3>Objetivos Principales</h3>
+            <ul>
+                <li>Desarrollar un modelo de regresión para predecir el PBI provincial basado en indicadores de pobreza y deserción escolar</li>
+                <li>Comparar el rendimiento de Arboles de Regresión podados vs no podados</li>
+                <li>Evaluar algoritmos de clasificación (Naïve Bayes vs. Bosque Aleatorio de Clasificación) para categorizar el PBI provincial</li>
+                <li>Identificar el modelo con mejor rendimiento predictivo</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Árboles de Regresión</h2>
+        
+        <h3>Árbol de Regresión - Profundidad 6</h3>
+        <img src="Arbol_6.jpg" alt="Árbol de Regresión - Profundidad 6" class="tree-image">
+        <p class="image-caption">Figura 1: Árbol de Regresión con profundidad máxima de 6 niveles</p>
+        
+        <h3>Árbol de Regresión - Profundidad 4</h3>
+        <img src="Arbol_4.jpg" alt="Árbol de Regresión - Profundidad 4" class="tree-image">
+        <p class="image-caption">Figura 2: Árbol de Regresión con profundidad máxima de 4 niveles (podado)</p>
+        
+        <h3>Estructura del Árbol de Regresión</h3>
+        
+        <div class="tree-explanation">
+            <div>
+                <h4>¿Qué información refleja el nodo raíz?</h4>
+                <div class="node-info">
+                    <p>El nodo raíz contiene todos los datos de entrenamiento y muestra:</p>
+                    <ul>
+                        <li><strong>Variable de división</strong>: La variable y el umbral de la primera división (ej: poverty ≤ 8.16)</li>
+                        <li><strong>Valor de predicción</strong>: El valor de predicción inicial (media del GDP logarítmico)</li>
+                        <li><strong>Muestras</strong>: Número de muestras en ese nodo (ej: 22 provincias)</li>
+                        <li><strong>Criterio de impureza</strong>: El MSE (Error Cuadrático Medio) en ese nodo</li>
+                    </ul>
+                    <p>En nuestro análisis, el nodo raíz representa la división inicial que mejor separa los datos según el criterio de reducción de impureza.</p>
+                </div>
+            </div>
+            
+            <div>
+                <h4>¿Qué tipo de variables se muestran en los nodos de decisión?</h4>
+                <div class="node-info">
+                    <p>En los nodos de decisión se muestran variables numéricas continuas:</p>
+                    <ul>
+                        <li><strong>Poverty</strong>: Porcentaje de pobreza en la provincia</li>
+                        <li><strong>School Dropout</strong>: Tasa de deserción escolar</li>
+                    </ul>
+                    <p>Cada nodo incluye:</p>
+                    <ul>
+                        <li>Un umbral de división (ej: school_dropout ≤ 4.845)</li>
+                        <li>El criterio de impureza (MSE) antes y después de la división</li>
+                        <li>El número de muestras que pasan a cada nodo hijo</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div>
+                <h4>¿Qué variable se representa en los nodos hojas?</h4>
+                <div class="node-info">
+                    <p>En las hojas se representa el valor predicho para el GDP (en escala logarítmica si se aplicó transformación), que es la media de las muestras en esa hoja.</p>
+                    <p>Cada nodo hoja contiene:</p>
+                    <ul>
+                        <li><strong>Valor de predicción</strong>: El GDP predicho para esa rama</li>
+                        <li><strong>Muestras</strong>: El número de muestras en esa hoja</li>
+                        <li><strong>Impureza</strong>: El MSE (Error Cuadrático Medio) en ese punto</li>
+                    </ul>
+                    <p>Estos valores representan la predicción final para cualquier muestra que llegue a esa hoja.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Análisis de los Árboles de Regresión</h2>
+        <p>Se implementaron dos variantes de Arboles de Regresión para predecir el PBI provincial:</p>
+        
+        <h3>Comparación de Métricas</h3>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Métrica</th>
+                    <th>Árbol Sin Podar (Profundidad: 6)</th>
+                    <th>Árbol Podado (Profundidad: 4)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>MAE (Mean Absolute Error)</td>
+                    <td>0.38743</td>
+                    <td>0.39797</td>
+                </tr>
+                <tr>
+                    <td>MSE (Mean Squared Error)</td>
+                    <td>0.58997</td>
+                    <td>0.55418</td>
+                </tr>
+                <tr>
+                    <td>RMSE (Root Mean Squared Error)</td>
+                    <td>0.76810</td>
+                    <td>0.74443</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="chart-container" id="treeComparisonChart"></div>
+        
+        <div class="conclusion">
+            <h3>Conclusión: Árbol Podado vs. Árbol Sin Podar</h3>
+            <p>Se recomienda utilizar el <span class="highlight">Arbol Podado (profundidad 4)</span> debido a:</p>
+            <ul>
+                <li><strong>Menor error cuadrático</strong>: Tiene menores valores de MSE (0.55418 vs 0.58997) y RMSE (0.74443 vs 0.76810), indicando mejor manejo de valores atípicos</li>
+                <li><strong>Mayor capacidad de generalización</strong>: La estructura más simple reduce el riesgo de sobreajuste (overfitting)</li>
+                <li><strong>Mejor interpretabilidad</strong>: Con solo 4 niveles de profundidad, es más fácil de entender y explicar</li>
+                <li><strong>Diferencia mínima en MAE</strong>: La pequeña diferencia en MAE (0.39797 vs 0.38743) no compensa la mayor complejidad del árbol sin podar</li>
+            </ul>
+            <p>El principio de parsimonia favorece modelos más simples cuando el rendimiento es comparable, haciendo del árbol podado la opción más adecuada para este análisis.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Comparación de Algoritmos de Clasificación</h2>
+        <p>Se evaluaron dos algoritmos de clasificación para categorizar el PBI provincial en tres niveles (Bajo, Medio, Alto):</p>
+        
+        <h3>Métricas de Rendimiento</h3>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Métrica</th>
+                    <th>Naïve Bayes</th>
+                    <th>Bosque Aleatorio de Clasificación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Accuracy</td>
+                    <td>0.6667</td>
+                    <td>0.7778</td>
+                </tr>
+                <tr>
+                    <td>Precision</td>
+                    <td>0.7222</td>
+                    <td>0.8148</td>
+                </tr>
+                <tr>
+                    <td>Recall</td>
+                    <td>0.6667</td>
+                    <td>0.7778</td>
+                </tr>
+                <tr>
+                    <td>F1-Score</td>
+                    <td>0.6741</td>
+                    <td>0.7778</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="chart-container" id="classificationComparisonChart"></div>
+        
+        <h3>Importancia de Variables (Bosque Aleatorio de Clasificación)</h3>
+        <div class="chart-container" id="featureImportanceChart"></div>
+        
+        <div class="conclusion">
+            <h3>Conclusión: Naïve Bayes vs. Bosque Aleatorio de Clasificación</h3>
+            <p>El algoritmo de <span class="highlight">Bosque Aleatorio de Clasificación</span> demuestra mejor rendimiento general debido a:</p>
+            <ul>
+                <li>Mayor capacidad predictiva (F1-Score más alto: 0.7778 vs 0.6741)</li>
+                <li>Mejor manejo de relaciones no lineales entre variables</li>
+                <li>Capacidad para determinar la importancia relativa de las variables predictoras</li>
+            </ul>
+            <p>La variable <span class="highlight">"poverty"</span> resultó ser la más importante para predecir la categoría del PBI.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Hallazgos Clave y Recomendaciones</h2>
+        
+        <div class="metric-card">
+            <h3>Relaciones Identificadas</h3>
+            <ul>
+                <li>Existe una correlación inversa entre los niveles de pobreza y el PBI provincial</li>
+                <li>La tasa de deserción escolar también muestra relación negativa con el PBI</li>
+                <li>La pobreza es el predictor más importante para categorizar el PBI provincial</li>
+            </ul>
+        </div>
+        
+        <div class="metric-card">
+            <h3>Recomendaciones</h3>
+            <ul>
+                <li>Utilizar el <strong>árbol de decisión podado (profundidad 4)</strong> para predicciones de PBI continuo</li>
+                <li>Emplear el <strong>Bosque Aleatorio de Clasificación </strong> para clasificación del PBI en categorías</li>
+                <li>Considerar la inclusión de variables adicionales para mejorar la precisión predictiva</li>
+                <li>Validar los modelos con datos de períodos futuros para evaluar su capacidad de generalización</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="metric-card">
+        <h3>Grupo 4:</h3>
+        <ul>
+            <li>Agustín Emanuel Meza</li>
+            <li>Facundo Zubeldia</li>
+            <li>Flavia María Luisa Crolla</li>
+            <li>Gianmarco Mauricio Ríos</li>
+            <li>Iván Luzzani</li>
+            <li>Gonzalo Martín González Nastovich</li>
+        </ul>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
