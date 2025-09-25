@@ -31,6 +31,22 @@
     </div>
 
     <div class="section">
+        <h2>Preprocesamiento de los datos</h2>
+        
+        <div class="metric-card">
+            <h3>Limpieza e Imputación de Datos Provinciales</h3>
+            <ul>
+                <li>Se cargó la tabla de datos y se revisaron sus variables para detectar posibles anomalías.</li>
+                <li>Se identificaron dos filas duplicadas correspondientes a la provincia de Formosa. Aplicando la eliminación de la segunda aparición</li>
+                <li>Se verificaron los valores nulos por columna, encontrando ausencias en variables económicas, sociales y demográficas.</li>
+                <li>Antes de imputar, se calcularon estadísticas descriptivas sobre la tabla original y se exportaron a Excel para futuras comparaciones.</li>
+                <li>Se definieron criterios de imputación diferenciados para las Variables Económicas y Demográficas aplicando la mediana nacional.</li>
+                <li>Este enfoque asegura coherencia estadística y prepara el dataset para análisis posteriores con trazabilidad y reproducibilidad.</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="section">
         <h2>Árboles de Regresión</h2>
         
         <h3>Árbol de Regresión - Profundidad 6</h3>
