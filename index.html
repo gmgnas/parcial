@@ -198,10 +198,12 @@
         
         <div class="conclusion">
             <h3>Conclusión: Naïve Bayes vs. Bosque Aleatorio de Clasificación</h3>
-            <p>El algoritmo de <span class="highlight">Bosque Aleatorio de Clasificación</span> demuestra mejor rendimiento general debido a:</p>
+            <p>El algoritmo de <span class="highlight">Bosque Aleatorio de Clasificación</span> demuestra mejor rendimiento en todas las métricas evaluadas:</p>
             <ul>
-                <li>Mayor capacidad predictiva (F1-Score más alto: 0.7778 vs 0.6741)</li>
-                <li>Mejor manejo de relaciones no lineales entre variables</li>
+                <li>Con un Accuracy del 77.78% frente al 66.67%, clasifica significativamente más instancias correctamente</li>
+                <li>Su mayor Precision, 81.48% vs 72.22%, indica que es más confiable cuando predice una clase positiva, cometiendo menos falsas alarmas</li>
+                <li>El mejor Recall, 77.78% vs 66.67%, muestra que detecta una mayor proporción de los casos positivos reales</li>
+                <li>La ventaja consolidada se confirma con el F1-Score, 77.78% vs 67.41%, que evidencia un equilibrio óptimo entre Precision y Recall</li>
                 <li>Capacidad para determinar la importancia relativa de las variables predictoras</li>
             </ul>
             <p>La variable <span class="highlight">"poverty"</span> resultó ser la más importante para predecir la categoría del PBI.</p>
